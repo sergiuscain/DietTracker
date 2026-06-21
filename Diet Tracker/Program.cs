@@ -8,7 +8,9 @@ foreach (var entry in result)
 {
     Console.WriteLine(entry);
 }
-Console.ReadLine();
+Console.WriteLine("Выбор записи. Введите ID");
+var input = int.Parse(Console.ReadLine());
+Console.WriteLine(x.GetMealEntry(input));
 //Random r = new Random();
 //for (int i = 0; i < 100; i++)
 //{

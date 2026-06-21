@@ -65,7 +65,7 @@ internal class JsonStorageModule : IStorageModule
 
     public MealEntry GetMealEntry(int mealEntryId)
     {
-        throw new NotImplementedException();
+        return GetAllMealEntries().FirstOrDefault(x => x.Id == mealEntryId);
     }
 
     public bool RemoveMealEntry(int mealEntryId)
