@@ -11,4 +11,9 @@ internal class MealEntry
     public int Carbohydrates { get; set; }
     public int PortionWeight { get; set; }
 
+
+    public override string ToString()
+    {
+        return $"Id: {Id}, DateTime: {DateTime}, MealType: {MealType}, FoodName: {FoodName}, Calories: {Calories}, Proteins: {Proteins}, Fats: {Fats}, Carbohydrates: {Carbohydrates}, PortionWeight: {PortionWeight}";
+    }
 }
