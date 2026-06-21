@@ -36,7 +36,16 @@ internal class JsonStorageModule : IStorageModule
 
     public ICollection<MealEntry> GetAllMealEntries()
     {
-        throw new NotImplementedException();
+        if(File.Exists(filePath))
+        {
+            var jsonData = File.ReadAllText(filePath);
+            if(jsonData.Length > 5)
+            {
+                var data = JsonSerializer.Deserialize<ICollection<MealEntry>>(jsonData);
+                return data;
+            }
+        }
+        return new List<MealEntry>();
     }
 
     public ICollection<MealEntry> GetAllMealEntries(int page, int pageSize)
