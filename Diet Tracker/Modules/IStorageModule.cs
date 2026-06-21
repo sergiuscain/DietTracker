@@ -29,7 +29,7 @@ internal interface IStorageModule
     /// <summary>
     /// Перегрузка получения записей приёмов пищи с пагинацией
     /// </summary>
-    /// <param name="page">Номер страницы. Отчёт с нулевой начинается</param>
+    /// <param name="page">Номер страницы.</param>
     /// <param name="pageSize">Размер страницы</param>
     /// <returns></returns>
     public ICollection<MealEntry> GetAllMealEntries(int page, int pageSize);

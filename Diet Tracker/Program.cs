@@ -3,18 +3,27 @@ using Diet_Tracker.Modules;
 
 Console.WriteLine("Hello, World!");
 var x = new JsonStorageModule();
-var result = x.GetAllMealEntries();
+var result = x.GetAllMealEntries(1, 10);
+foreach (var entry in result)
+{
+    Console.WriteLine(entry);
+}
 Console.ReadLine();
-//var meal = new MealEntry
+//Random r = new Random();
+//for (int i = 0; i < 100; i++)
 //{
-//    Calories = 100,
-//    DateTime = DateTime.Now,
-//    Carbohydrates = 100,
-//    Fats = 100,
-//    FoodName = "Макарошки с сосиской",
-//    Id = 0,
-//    MealType = MealType.breakfast,
-//    PortionWeight = 100,
-//    Proteins = 999
-//};
-//x.AddMealEntry(meal);
+//    var meal = new MealEntry
+//    {
+//        Calories = r.Next(100),
+//        DateTime = DateTime.Now,
+//        Carbohydrates = r.Next(100),
+//        Fats = r.Next(100),
+//        FoodName = "Макарошки с сосиской",
+//        Id = i,
+//        MealType = MealType.breakfast,
+//        PortionWeight = r.Next(100),
+//        Proteins = r.Next(100)
+//    };
+
+//    x.AddMealEntry(meal);
+//}
