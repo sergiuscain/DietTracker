@@ -8,9 +8,14 @@ foreach (var entry in result)
 {
     Console.WriteLine(entry);
 }
-Console.WriteLine("Выбор записи. Введите ID");
+//Console.WriteLine("Выбор записи. Введите ID");
+//var input = int.Parse(Console.ReadLine());
+//Console.WriteLine(x.GetMealEntry(input));
+
+Console.WriteLine("Выбор записи для удаления. Введите ID");
 var input = int.Parse(Console.ReadLine());
-Console.WriteLine(x.GetMealEntry(input));
+Console.WriteLine(x.RemoveMealEntry(input));
+
 //Random r = new Random();
 //for (int i = 0; i < 100; i++)
 //{

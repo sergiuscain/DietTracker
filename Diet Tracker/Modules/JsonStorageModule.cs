@@ -70,7 +70,16 @@ internal class JsonStorageModule : IStorageModule
 
     public bool RemoveMealEntry(int mealEntryId)
     {
-        throw new NotImplementedException();
+        var data = GetAllMealEntries();
+        var mealEntry = data.FirstOrDefault(x => x.Id == mealEntryId);
+        if (mealEntry != null)
+        {
+            data.Remove(mealEntry);
+            var jsonData = JsonSerializer.Serialize(data);
+            File.WriteAllText(filePath, jsonData);
+            return true;
+        }
+        return false;
     }
 
     public MealEntry UpdateMealEntry(MealEntry mealEntry, int mealEntryId)
