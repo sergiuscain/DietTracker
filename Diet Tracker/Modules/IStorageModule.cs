@@ -33,4 +33,6 @@ internal interface IStorageModule
     /// <param name="pageSize">Размер страницы</param>
     /// <returns></returns>
     public ICollection<MealEntry> GetAllMealEntries(int page, int pageSize);
+    public Goals GetGoals();
+    public bool SetGoals(Goals goals);
 }

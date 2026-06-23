@@ -5,25 +5,26 @@ namespace Diet_Tracker.Modules;
 
 internal class JsonStorageModule : IStorageModule
 {
-    private string filePath = "MealData.json";
+    private string mealEntryPath = "MealEntry.json";
+    private string goalsPath = "Goals.json";
     public bool AddMealEntry(MealEntry mealEntry)
     {
         try
         {
-            if (File.Exists(filePath))
+            if (File.Exists(mealEntryPath))
             {
-                var lastJsonData = File.ReadAllText(filePath);
+                var lastJsonData = File.ReadAllText(mealEntryPath);
                 var data = JsonSerializer.Deserialize<ICollection<MealEntry>>(lastJsonData);
                 data?.Add(mealEntry);
                 var newJsonData = JsonSerializer.Serialize(data);
-                File.WriteAllText(filePath, newJsonData);
+                File.WriteAllText(mealEntryPath, newJsonData);
             }
             else
             {
                 var data = new List<MealEntry>();
                 data.Add(mealEntry);
                 var jsonData = JsonSerializer.Serialize(data);
-                File.WriteAllText(filePath, jsonData);
+                File.WriteAllText(mealEntryPath, jsonData);
             }
         }
         catch(Exception ex)
@@ -36,9 +37,9 @@ internal class JsonStorageModule : IStorageModule
 
     public ICollection<MealEntry> GetAllMealEntries()
     {
-        if(File.Exists(filePath))
+        if(File.Exists(mealEntryPath))
         {
-            var jsonData = File.ReadAllText(filePath);
+            var jsonData = File.ReadAllText(mealEntryPath);
             if(jsonData.Length > 5)
             {
                 var data = JsonSerializer.Deserialize<ICollection<MealEntry>>(jsonData);
@@ -50,9 +51,9 @@ internal class JsonStorageModule : IStorageModule
 
     public ICollection<MealEntry> GetAllMealEntries(int page, int pageSize)
     {
-        if (File.Exists(filePath))
+        if (File.Exists(mealEntryPath))
         {
-            var jsonData = File.ReadAllText(filePath);
+            var jsonData = File.ReadAllText(mealEntryPath);
             if (jsonData.Length > 5)
             {
                 var data = JsonSerializer.Deserialize<ICollection<MealEntry>>(jsonData);
@@ -62,6 +63,7 @@ internal class JsonStorageModule : IStorageModule
         }
         return new List<MealEntry>();
     }
+
 
     public MealEntry GetMealEntry(int mealEntryId)
     {
@@ -76,9 +78,56 @@ internal class JsonStorageModule : IStorageModule
         {
             data.Remove(mealEntry);
             var jsonData = JsonSerializer.Serialize(data);
-            File.WriteAllText(filePath, jsonData);
+            File.WriteAllText(mealEntryPath, jsonData);
             return true;
         }
         return false;
+    }
+    /// <summary>
+    /// Возвращает запись целей. Если цели ещё не заданы, 
+    /// создает запись по умолчания, записывает её в Json 
+    /// и рекрусивно вызывает себя же.
+    /// </summary>
+    /// <returns></returns>
+    public Goals GetGoals()
+    {
+        if (!File.Exists(goalsPath))
+        {
+            Goals goals = new Goals 
+            { Calories = 1800, 
+                Carbohydrates = 120, 
+                Fats = 40, 
+                Proteins = 90 
+            };
+            var jsonGoals = JsonSerializer.Serialize(goals);
+            File.WriteAllText(goalsPath, jsonGoals);
+            return GetGoals();
+        }
+        else
+        {
+            var jsonGoals = File.ReadAllText(goalsPath);
+            var goals = JsonSerializer.Deserialize<Goals>(jsonGoals);
+            return goals;
+        }
+    }
+    /// <summary>
+    /// Устонавливает цель КБЖУ.
+    /// </summary>
+    /// <param name="goals"></param>
+    /// <returns></returns>
+    public bool SetGoals(Goals goals)
+    {
+        if (!File.Exists(goalsPath))
+        {
+            var jsonGoals = JsonSerializer.Serialize(goals);
+            File.WriteAllText(goalsPath, jsonGoals);
+            return true;
+        }
+        else
+        {
+            File.Delete(goalsPath);
+            SetGoals(goals);
+            return false;
+        }
     }
 }
