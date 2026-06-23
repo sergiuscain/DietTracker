@@ -33,11 +33,4 @@ internal interface IStorageModule
     /// <param name="pageSize">Размер страницы</param>
     /// <returns></returns>
     public ICollection<MealEntry> GetAllMealEntries(int page, int pageSize);
-    /// <summary>
-    /// Обновление записи с указанным Id
-    /// </summary>
-    /// <param name="mealEntry">Новая запись</param>
-    /// <param name="mealEntryId">Id записи, которую необходимо обновить</param>
-    /// <returns></returns>
-    public MealEntry UpdateMealEntry(MealEntry mealEntry, int mealEntryId);
 }

@@ -81,9 +81,4 @@ internal class JsonStorageModule : IStorageModule
         }
         return false;
     }
-
-    public MealEntry UpdateMealEntry(MealEntry mealEntry, int mealEntryId)
-    {
-        throw new NotImplementedException();
-    }
 }
