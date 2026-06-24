@@ -78,7 +78,11 @@ internal class InputAndViewModule
 
     private void Exit()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($"\tВы вышли из приложения.");
+        Console.ForegroundColor= ConsoleColor.White;
+        Environment.Exit(0);
     }
 
     private int GetInputRangeKey(int range)
