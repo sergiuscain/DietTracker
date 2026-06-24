@@ -3,15 +3,21 @@
 namespace Diet_Tracker.Modules;
 internal class InputAndViewModule
 {
+    private readonly IStorageModule _storageModule;
+    private readonly ReportModule _reportModule;
     public InputAndViewModule(ReportModule reportModule, IStorageModule storageModule)
     {
-
+        _reportModule = reportModule;
+        _storageModule = storageModule;
     }
 
     internal void View()
     {
         while (true)
         {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.White;
+
             Console.Write($"\t═══════════════════════════════════════\n");
             Console.Write($"\t════════════ДНЕВНИК ПИТАНИЯ════════════\n");
             Console.Write($"\t═══════ 1.Добавить приём пищи ═════════\n");
@@ -58,7 +64,25 @@ internal class InputAndViewModule
 
     private void ShowAllMealEntryMenu()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+        var entries = _storageModule.GetAllMealEntries();
+
+        foreach (var entry in entries)
+        {
+            Console.WriteLine($"\tId: {entry.Id}");
+            Console.WriteLine($"\tДата: {entry.DateTime}");
+            Console.WriteLine($"\tТип: {entry.MealType}");
+            Console.WriteLine($"\tБлюдо: {entry.FoodName}");
+            Console.WriteLine($"\tКалории: {entry.Calories}");
+            Console.WriteLine($"\tБелки: {entry.Proteins}г");
+            Console.WriteLine($"\tЖиры: {entry.Fats}г");
+            Console.WriteLine($"\tУглеводы: {entry.Carbohydrates}г");
+            Console.WriteLine($"\tВес: {entry.PortionWeight}г");
+            Console.WriteLine($"\t----------------------------------------");
+        }
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"\tНажмите любую клавишу, что бы вернуться в меню");
+        Console.ReadKey(); 
     }
 
     private void ShowGoalsMenu()
@@ -73,7 +97,43 @@ internal class InputAndViewModule
 
     private void ShowAddMealEntryMenu()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+
+        Console.Write("Введите название блюда: ");
+        string foodName = Console.ReadLine();
+
+        Console.Write("Введите тип приема пищи (0-завтрак, 1-обед, 2-ужин, 3-перекус, 4-другое): ");
+        MealType mealType = (MealType)GetInputRangeKey(4);
+
+        Console.Write("Введите калории: ");
+        int calories = GetInputRangeKey(3000);
+
+        Console.Write("Введите белки (г): ");
+        int proteins = GetInputRangeKey(1000);
+
+        Console.Write("Введите жиры (г): ");
+        int fats = GetInputRangeKey(1000);
+
+        Console.Write("Введите углеводы (г): ");
+        int carbohydrates = GetInputRangeKey(1000);
+
+        Console.Write("Введите вес порции (г): ");
+        int portionWeight = GetInputRangeKey(1000);
+
+        var entry = new MealEntry
+        {
+            DateTime = DateTime.Now,
+            MealType = mealType,
+            FoodName = foodName,
+            Calories = calories,
+            Proteins = proteins,
+            Fats = fats,
+            Carbohydrates = carbohydrates,
+            PortionWeight = portionWeight
+        };
+
+        _storageModule.AddMealEntry(entry);
+        Console.WriteLine("Запись добавлена.");
     }
 
     private void Exit()
