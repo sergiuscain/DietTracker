@@ -1,4 +1,6 @@
-﻿namespace Diet_Tracker.Modules;
+﻿using Diet_Tracker.Models;
+
+namespace Diet_Tracker.Modules;
 internal class InputAndViewModule
 {
     public InputAndViewModule(ReportModule reportModule, IStorageModule storageModule)
@@ -22,8 +24,63 @@ internal class InputAndViewModule
             Console.Write($"\t═══════════════════════════════════════\n");
             Console.Write($"\t═══════════════════════════════════════\n");
             var input = GetInputRangeKey(5);
+            switch (input)
+            {
+                case 0:
+                    Exit();
+                    break;
+                case 1:
+                    ShowAddMealEntryMenu();
+                    break;
+                case 2:
+                    ShowDailyReportMenu();
+                    break;
+                case 3:
+                    ShowGoalsMenu();
+                    break;
+                case 4:
+                    ShowAllMealEntryMenu();
+                    break;
+                case 5:
+                    ShowWeeklyReportMenu();
+                    break;
+                default:
+                    Console.WriteLine("Неверный ввод");
+                    break;
+            }
         }
     }
+
+    private void ShowWeeklyReportMenu()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ShowAllMealEntryMenu()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ShowGoalsMenu()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ShowDailyReportMenu()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ShowAddMealEntryMenu()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void Exit()
+    {
+        throw new NotImplementedException();
+    }
+
     private int GetInputRangeKey(int range)
     {
         while(true)
