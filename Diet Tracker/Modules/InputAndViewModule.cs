@@ -175,7 +175,11 @@ internal class InputAndViewModule
         };
 
         _storageModule.AddMealEntry(entry);
-        Console.WriteLine("Запись добавлена.");
+        Console.Write($"\t═══════════════════════════════════════\n");
+        Console.Write($"\t════════ Запись добавлена. ════════════\n");
+        Console.Write($"\t═Нажмите любую клавишу, что продолжить═\n");
+        Console.Write($"\t═══════════════════════════════════════\n");
+        Console.ReadKey();
     }
 
     private void Exit()
