@@ -105,12 +105,9 @@ internal class InputAndViewModule
         var entries = _storageModule.GetAllMealEntries();
         Console.Write($"\t═══════════════════════════════════════\n");
         Console.Write($"\t═══════════ Все записи ════════════════\n");
-        foreach (var entry in entries)
-        {
-            ShowEntry(entry);
-        }
+        ShowEntry(entries);
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write($"\tНажмите любую клавишу, что бы вернуться в меню\n\t");
+        Console.Write($"Нажмите любую клавишу, что бы вернуться в меню\n\t");
         Console.ReadKey(); 
     }
 
