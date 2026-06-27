@@ -96,7 +96,12 @@ internal class InputAndViewModule
 
     private void ShowWeeklyReportMenu()
     {
-        throw new NotImplementedException();
+        var weeklyReport = _reportModule.PeriodReport(DateTime.Today, DateTime.Today.AddDays(7));
+        Console.Clear();
+        Console.Write($"\t═══════════════════════════════════════\n");
+        Console.Write($"\t═════════ За неделю вы ели: ═══════════\n");
+        ShowEntry(weeklyReport);
+        ContinueAlert();
     }
 
     private void ShowAllMealEntryMenu()
@@ -106,9 +111,8 @@ internal class InputAndViewModule
         Console.Write($"\t═══════════════════════════════════════\n");
         Console.Write($"\t═══════════ Все записи ════════════════\n");
         ShowEntry(entries);
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write($"Нажмите любую клавишу, что бы вернуться в меню\n\t");
-        Console.ReadKey(); 
+
+        ContinueAlert();
     }
 
     private void ShowEntry(MealEntry entry)
@@ -122,7 +126,7 @@ internal class InputAndViewModule
         Console.WriteLine($"\tЖиры: {entry.Fats}г");
         Console.WriteLine($"\tУглеводы: {entry.Carbohydrates}г");
         Console.WriteLine($"\tВес: {entry.PortionWeight}г");
-        Console.Write($"\t═══════════════════════════════════════\n\t");
+        Console.WriteLine($"\t═══════════════════════════════════════");
     }
     private void ShowEntry(ICollection<MealEntry> entries)
     {
@@ -144,7 +148,7 @@ internal class InputAndViewModule
         Console.Write($"\t═══════════════════════════════════════\n");
         Console.Write($"\t═════════ Сегодня вы ели: ═════════════\n");
         ShowEntry(dailyReport);
-        Console.ReadKey();
+        ContinueAlert();
     }
 
     private void ShowAddMealEntryMenu()
@@ -187,6 +191,11 @@ internal class InputAndViewModule
         _storageModule.AddMealEntry(entry);
         Console.Write($"\t═══════════════════════════════════════\n");
         Console.Write($"\t════════ Запись добавлена. ════════════\n");
+        ContinueAlert();
+    }
+
+    private static void ContinueAlert()
+    {
         Console.Write($"\t═Нажмите любую клавишу, что продолжить═\n");
         Console.Write($"\t═══════════════════════════════════════\n\t");
         Console.ReadKey();
