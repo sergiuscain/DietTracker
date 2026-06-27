@@ -15,6 +15,8 @@ internal class JsonStorageModule : IStorageModule
             {
                 var lastJsonData = File.ReadAllText(mealEntryPath);
                 var data = JsonSerializer.Deserialize<ICollection<MealEntry>>(lastJsonData);
+                var lastEntryId = data.Select(x => x.Id).Max();
+                mealEntry.Id = ++lastEntryId;
                 data?.Add(mealEntry);
                 var newJsonData = JsonSerializer.Serialize(data);
                 File.WriteAllText(mealEntryPath, newJsonData);
