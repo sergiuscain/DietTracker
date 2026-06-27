@@ -138,7 +138,14 @@ internal class InputAndViewModule
 
     private void ShowGoalsMenu()
     {
-        throw new NotImplementedException();
+        var goals = _reportModule.GetNutrientGoalReport(DateTime.Today);
+        Console.Write($"\t═══════════════════════════════════════\n");
+        Console.Write($"\tКалории: {goals.CurrentCalories}  /  {goals.GoalCalories}\n");
+        Console.Write($"\tБелки: {goals.CurrentProteins} / {goals.GoalProteins}\n");
+        Console.Write($"\tЖиры: {goals.CurrentCalories} / {goals.GoalFats}\n");
+        Console.Write($"\tУглеводы: {goals.CurrentCalories} / {goals.CurrentCarbohydrates}\n");
+        Console.Write($"\t═══════════════════════════════════════\n");
+        ContinueAlert();
     }
 
     private void ShowDailyReportMenu()
@@ -190,13 +197,13 @@ internal class InputAndViewModule
 
         _storageModule.AddMealEntry(entry);
         Console.Write($"\t═══════════════════════════════════════\n");
-        Console.Write($"\t════════ Запись добавлена. ════════════\n");
+        Console.Write($"\t═════════ Запись добавлена. ═══════════\n");
         ContinueAlert();
     }
 
     private static void ContinueAlert()
     {
-        Console.Write($"\t═Нажмите любую клавишу, что продолжить═\n");
+        Console.Write($"\tНажмите любую клавишу, что бы продолжить\n");
         Console.Write($"\t═══════════════════════════════════════\n\t");
         Console.ReadKey();
     }
