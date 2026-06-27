@@ -21,13 +21,13 @@ internal class InputAndViewModule
             Console.Write($"\t═══════════════════════════════════════\n");
             Console.Write($"\t════════════ДНЕВНИК ПИТАНИЯ════════════\n");
             Console.Write($"\t═══════ 1.Добавить приём пищи ═════════\n");
-            Console.Write($"\t═══════ 2.Отчёт за сегодня ════════════\n");
-            Console.Write($"\t═══════ 3.Выполнение целей (КБЖУ) ═════\n");
+            Console.Write($"\t═══════ 2.Удалить запись ══════════════\n");
+            Console.Write($"\t═══════ 3.Отчёт за сегодня ════════════\n");
+            Console.Write($"\t═══════ 4.Выполнение целей (КБЖУ) ═════\n");
             Console.Write($"\t═══════════════════════════════════════\n");
-            Console.Write($"\t═══════ 4.Все записи ══════════════════\n");
-            Console.Write($"\t═══════ 5.Отчёт за неделю ═════════════\n");
+            Console.Write($"\t═══════ 5.Все записи ══════════════════\n");
+            Console.Write($"\t═══════ 6.Отчёт за неделю ═════════════\n");
             Console.Write($"\t═══════ 0.Выход ═══════════════════════\n");
-            Console.Write($"\t═══════════════════════════════════════\n");
             Console.Write($"\t═══════════════════════════════════════\n");
             var input = GetInputRangeKey(5);
             switch (input)
@@ -39,20 +39,57 @@ internal class InputAndViewModule
                     ShowAddMealEntryMenu();
                     break;
                 case 2:
-                    ShowDailyReportMenu();
+                    ShowDeleteEntryMenu();
                     break;
                 case 3:
-                    ShowGoalsMenu();
+                    ShowDailyReportMenu();
                     break;
                 case 4:
-                    ShowAllMealEntryMenu();
+                    ShowGoalsMenu();
                     break;
                 case 5:
+                    ShowAllMealEntryMenu();
+                    break;
+                case 6:
                     ShowWeeklyReportMenu();
                     break;
                 default:
                     Console.WriteLine("Неверный ввод");
                     break;
+            }
+        }
+    }
+
+    private void ShowDeleteEntryMenu()
+    {
+        Console.Write($"\t═══════════════════════════════════════\n");
+        Console.Write($"\t═══ Введите Id Записи для удаления ════\n");
+        Console.Write($"\t═══════════════════════════════════════\n");
+        var inputEntryId = GetInputRangeKey(int.MaxValue);
+        var entry = _storageModule.GetMealEntry(inputEntryId);
+        if (entry == null)
+        {
+            Console.Write($"\t═══════════════════════════════════════\n");
+            Console.Write($"\t══════════ Запись не найдена ══════════\n");
+            Console.Write($"\t═Нажмите любую клавишу, что продолжить═\n");
+            Console.Write($"\t═══════════════════════════════════════\n");
+            Console.ReadKey();
+        }
+        else
+        {
+            ShowEntry(entry);
+            Console.Write($"\t═══════════════════════════════════════\n");
+            Console.Write($"\t═══ 1. Подтвердить удаление записи ════\n");
+            Console.Write($"\t═══ 0. Отмена ═════════════════════════\n");
+            Console.Write($"\t═══════════════════════════════════════\n");
+            var input = GetInputRangeKey(1);
+            if (input == 1)
+            {
+                _storageModule.RemoveMealEntry(inputEntryId);
+                Console.Write($"\t═══════════════════════════════════════\n");
+                Console.Write($"\t═══ Запись {inputEntryId} удалена ═════════════════\n");
+                Console.Write($"\t═Нажмите любую клавишу, что продолжить═\n");
+                Console.Write($"\t═══════════════════════════════════════\n");
             }
         }
     }
@@ -69,20 +106,25 @@ internal class InputAndViewModule
 
         foreach (var entry in entries)
         {
-            Console.WriteLine($"\tId: {entry.Id}");
-            Console.WriteLine($"\tДата: {entry.DateTime}");
-            Console.WriteLine($"\tТип: {entry.MealType}");
-            Console.WriteLine($"\tБлюдо: {entry.FoodName}");
-            Console.WriteLine($"\tКалории: {entry.Calories}");
-            Console.WriteLine($"\tБелки: {entry.Proteins}г");
-            Console.WriteLine($"\tЖиры: {entry.Fats}г");
-            Console.WriteLine($"\tУглеводы: {entry.Carbohydrates}г");
-            Console.WriteLine($"\tВес: {entry.PortionWeight}г");
-            Console.WriteLine($"\t----------------------------------------");
+            ShowEntry(entry);
         }
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine($"\tНажмите любую клавишу, что бы вернуться в меню");
         Console.ReadKey(); 
+    }
+
+    private void ShowEntry(MealEntry entry)
+    {
+        Console.WriteLine($"\tId: {entry.Id}");
+        Console.WriteLine($"\tДата: {entry.DateTime}");
+        Console.WriteLine($"\tТип: {entry.MealType}");
+        Console.WriteLine($"\tБлюдо: {entry.FoodName}");
+        Console.WriteLine($"\tКалории: {entry.Calories}");
+        Console.WriteLine($"\tБелки: {entry.Proteins}г");
+        Console.WriteLine($"\tЖиры: {entry.Fats}г");
+        Console.WriteLine($"\tУглеводы: {entry.Carbohydrates}г");
+        Console.WriteLine($"\tВес: {entry.PortionWeight}г");
+        Console.WriteLine($"\t----------------------------------------");
     }
 
     private void ShowGoalsMenu()
@@ -153,7 +195,9 @@ internal class InputAndViewModule
             if (int.TryParse(input, out int number))
                 if (number >= 0 && number <= range)
                     return number;
-            Console.WriteLine("Неверный формат ввода.");
+            Console.Write($"\t═══════════════════════════════════════\n");
+            Console.Write($"\t══════ Неверный формат ввода. ═════════\n");
+            Console.Write($"\t═══════════════════════════════════════\n");
         }
     }
 }
