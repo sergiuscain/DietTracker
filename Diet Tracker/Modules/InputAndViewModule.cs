@@ -155,7 +155,7 @@ internal class InputAndViewModule
         Console.Write($"\t═══════════════════════════════════════\n");
         Console.Write($"\t═════════ Сегодня вы ели: ═════════════\n");
         ShowEntry(dailyReport);
-        ContinueAlert();
+        ShowGoalsMenu();
     }
 
     private void ShowAddMealEntryMenu()
