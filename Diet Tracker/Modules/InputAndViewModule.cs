@@ -28,8 +28,8 @@ internal class InputAndViewModule
             Console.Write($"\t═══════ 5.Все записи ══════════════════\n");
             Console.Write($"\t═══════ 6.Отчёт за неделю ═════════════\n");
             Console.Write($"\t═══════ 0.Выход ═══════════════════════\n");
-            Console.Write($"\t═══════════════════════════════════════\n");
-            var input = GetInputRangeKey(5);
+            Console.Write($"\t═══════════════════════════════════════\n\t");
+            var input = GetInputRangeKey(6);
             switch (input)
             {
                 case 0:
@@ -54,7 +54,7 @@ internal class InputAndViewModule
                     ShowWeeklyReportMenu();
                     break;
                 default:
-                    Console.WriteLine("Неверный ввод");
+                    Console.WriteLine("\tНеверный ввод");
                     break;
             }
         }
@@ -64,7 +64,7 @@ internal class InputAndViewModule
     {
         Console.Write($"\t═══════════════════════════════════════\n");
         Console.Write($"\t═══ Введите Id Записи для удаления ════\n");
-        Console.Write($"\t═══════════════════════════════════════\n");
+        Console.Write($"\t═══════════════════════════════════════\n\t");
         var inputEntryId = GetInputRangeKey(int.MaxValue);
         var entry = _storageModule.GetMealEntry(inputEntryId);
         if (entry == null)
@@ -72,7 +72,7 @@ internal class InputAndViewModule
             Console.Write($"\t═══════════════════════════════════════\n");
             Console.Write($"\t══════════ Запись не найдена ══════════\n");
             Console.Write($"\t═Нажмите любую клавишу, что продолжить═\n");
-            Console.Write($"\t═══════════════════════════════════════\n");
+            Console.Write($"\t═══════════════════════════════════════\n\t");
             Console.ReadKey();
         }
         else
@@ -81,7 +81,7 @@ internal class InputAndViewModule
             Console.Write($"\t═══════════════════════════════════════\n");
             Console.Write($"\t═══ 1. Подтвердить удаление записи ════\n");
             Console.Write($"\t═══ 0. Отмена ═════════════════════════\n");
-            Console.Write($"\t═══════════════════════════════════════\n");
+            Console.Write($"\t═══════════════════════════════════════\n\t");
             var input = GetInputRangeKey(1);
             if (input == 1)
             {
@@ -89,7 +89,7 @@ internal class InputAndViewModule
                 Console.Write($"\t═══════════════════════════════════════\n");
                 Console.Write($"\t═══ Запись {inputEntryId} удалена ═════════════════\n");
                 Console.Write($"\t═Нажмите любую клавишу, что продолжить═\n");
-                Console.Write($"\t═══════════════════════════════════════\n");
+                Console.Write($"\t═══════════════════════════════════════\n\t");
             }
         }
     }
@@ -103,13 +103,14 @@ internal class InputAndViewModule
     {
         Console.Clear();
         var entries = _storageModule.GetAllMealEntries();
-
+        Console.Write($"\t═══════════════════════════════════════\n");
+        Console.Write($"\t═══════════ Все записи ════════════════\n");
         foreach (var entry in entries)
         {
             ShowEntry(entry);
         }
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"\tНажмите любую клавишу, что бы вернуться в меню");
+        Console.Write($"\tНажмите любую клавишу, что бы вернуться в меню\n\t");
         Console.ReadKey(); 
     }
 
@@ -124,7 +125,7 @@ internal class InputAndViewModule
         Console.WriteLine($"\tЖиры: {entry.Fats}г");
         Console.WriteLine($"\tУглеводы: {entry.Carbohydrates}г");
         Console.WriteLine($"\tВес: {entry.PortionWeight}г");
-        Console.WriteLine($"\t----------------------------------------");
+        Console.WriteLine($"\t═══════════════════════════════════════\t");
     }
 
     private void ShowGoalsMenu()
@@ -141,25 +142,25 @@ internal class InputAndViewModule
     {
         Console.Clear();
 
-        Console.Write("Введите название блюда: ");
+        Console.Write("\tВведите название блюда: ");
         string foodName = Console.ReadLine();
 
-        Console.Write("Введите тип приема пищи (0-завтрак, 1-обед, 2-ужин, 3-перекус, 4-другое): ");
+        Console.Write("\tВведите тип приема пищи (0-завтрак, 1-обед, 2-ужин, 3-перекус, 4-другое): ");
         MealType mealType = (MealType)GetInputRangeKey(4);
 
-        Console.Write("Введите калории: ");
+        Console.Write("\tВведите калории: ");
         int calories = GetInputRangeKey(3000);
 
-        Console.Write("Введите белки (г): ");
+        Console.Write("\tВведите белки (г): ");
         int proteins = GetInputRangeKey(1000);
 
-        Console.Write("Введите жиры (г): ");
+        Console.Write("\tВведите жиры (г): ");
         int fats = GetInputRangeKey(1000);
 
-        Console.Write("Введите углеводы (г): ");
+        Console.Write("\tВведите углеводы (г): ");
         int carbohydrates = GetInputRangeKey(1000);
 
-        Console.Write("Введите вес порции (г): ");
+        Console.Write("\tВведите вес порции (г): ");
         int portionWeight = GetInputRangeKey(1000);
 
         var entry = new MealEntry
@@ -178,7 +179,7 @@ internal class InputAndViewModule
         Console.Write($"\t═══════════════════════════════════════\n");
         Console.Write($"\t════════ Запись добавлена. ════════════\n");
         Console.Write($"\t═Нажмите любую клавишу, что продолжить═\n");
-        Console.Write($"\t═══════════════════════════════════════\n");
+        Console.Write($"\t═══════════════════════════════════════\n\t");
         Console.ReadKey();
     }
 
@@ -201,7 +202,7 @@ internal class InputAndViewModule
                     return number;
             Console.Write($"\t═══════════════════════════════════════\n");
             Console.Write($"\t══════ Неверный формат ввода. ═════════\n");
-            Console.Write($"\t═══════════════════════════════════════\n");
+            Console.Write($"\t═══════════════════════════════════════\n\t");
         }
     }
 }
