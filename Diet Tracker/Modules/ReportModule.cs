@@ -22,7 +22,7 @@ internal class ReportModule
     }
     public NutrientGoalReport GetNutrientGoalReport(DateTime date)
     {
-        var dailyEntry = _storageModule.GetAllMealEntries().Where(x => x.DateTime == date.Date);
+        var dailyEntry = _storageModule.GetAllMealEntries().Where(x => x.DateTime.Date == date.Date);
         var goals = _storageModule.GetGoals();
         var report = new NutrientGoalReport
         {
