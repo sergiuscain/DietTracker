@@ -125,7 +125,14 @@ internal class InputAndViewModule
         Console.WriteLine($"\tЖиры: {entry.Fats}г");
         Console.WriteLine($"\tУглеводы: {entry.Carbohydrates}г");
         Console.WriteLine($"\tВес: {entry.PortionWeight}г");
-        Console.WriteLine($"\t═══════════════════════════════════════\t");
+        Console.Write($"\t═══════════════════════════════════════\n\t");
+    }
+    private void ShowEntry(ICollection<MealEntry> entries)
+    {
+        foreach (var entry in entries)
+        {
+            ShowEntry(entry);
+        }
     }
 
     private void ShowGoalsMenu()
@@ -135,7 +142,12 @@ internal class InputAndViewModule
 
     private void ShowDailyReportMenu()
     {
-        throw new NotImplementedException();
+        var dailyReport = _reportModule.DailyReport();
+        Console.Clear();
+        Console.Write($"\t═══════════════════════════════════════\n");
+        Console.Write($"\t═════════ Сегодня вы ели: ═════════════\n");
+        ShowEntry(dailyReport);
+        Console.ReadKey();
     }
 
     private void ShowAddMealEntryMenu()
