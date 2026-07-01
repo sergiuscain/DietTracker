@@ -143,7 +143,7 @@ internal class InputAndViewModule
         Console.Write($"\tКалории: {goals.CurrentCalories}  /  {goals.GoalCalories}\n");
         Console.Write($"\tБелки: {goals.CurrentProteins} / {goals.GoalProteins}\n");
         Console.Write($"\tЖиры: {goals.CurrentCalories} / {goals.GoalFats}\n");
-        Console.Write($"\tУглеводы: {goals.CurrentCalories} / {goals.CurrentCarbohydrates}\n");
+        Console.Write($"\tУглеводы: {goals.CurrentCarbohydrates} / {goals.GoalCarbohydrates}\n");
         Console.Write($"\t═══════════════════════════════════════\n");
         ContinueAlert();
     }
