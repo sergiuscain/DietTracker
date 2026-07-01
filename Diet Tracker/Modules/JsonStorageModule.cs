@@ -132,4 +132,9 @@ internal class JsonStorageModule : IStorageModule
             return false;
         }
     }
+
+    public bool EditGoals(Goals goals)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -35,4 +35,5 @@ internal interface IStorageModule
     public ICollection<MealEntry> GetAllMealEntries(int page, int pageSize);
     public Goals GetGoals();
     public bool SetGoals(Goals goals);
+    bool EditGoals(Goals goals);
 }
